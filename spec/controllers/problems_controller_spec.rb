@@ -1,18 +1,18 @@
 describe ProblemsController, type: 'controller' do
   it_requires_authentication for:    {
-    index: :get, show: :get, resolve: :put, search: :get
-  },
+                               index: :get, show: :get, resolve: :put, search: :get
+                             },
                              params: { app_id: 'dummyid', id: 'dummyid' }
 
   let(:app) { Fabricate(:app) }
-  let(:err) { Fabricate(:err, problem: problem) }
+  let(:err) { Fabricate(:err, problem:) }
   let(:user) { Fabricate(:user) }
-  let(:problem) { Fabricate(:problem, app: app, environment: "production") }
+  let(:problem) { Fabricate(:problem, app:, environment: "production") }
 
   describe "GET /problems" do
     before(:each) do
       sign_in user
-      @problem = Fabricate(:notice, err: Fabricate(:err, problem: Fabricate(:problem, app: app, environment: "production"))).problem
+      @problem = Fabricate(:notice, err: Fabricate(:err, problem: Fabricate(:problem, app:, environment: "production"))).problem
     end
 
     context "pagination" do
@@ -170,7 +170,7 @@ describe ProblemsController, type: 'controller' do
     context 'pagination' do
       let!(:notices) do
         3.times.reduce([]) do |coll, i|
-          coll << Fabricate(:notice, err: err, created_at: (i.seconds.from_now))
+          coll << Fabricate(:notice, err:, created_at: (i.seconds.from_now))
         end
       end
 

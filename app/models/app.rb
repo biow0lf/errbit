@@ -32,8 +32,8 @@ class App
   before_validation :generate_api_key, on: :create
   before_save :normalize_github_repo
   before_create :build_notice_fingerprinter
-  after_find :build_notice_fingerprinter
   after_update :store_cached_attributes_on_problems
+  after_find :build_notice_fingerprinter
 
   validates :name, :api_key, presence: true, uniqueness: { allow_blank: true }
   validates_associated :watchers
@@ -45,10 +45,10 @@ class App
     reject_if:     proc { |attrs| attrs[:user_id].blank? && attrs[:email].blank? }
   accepts_nested_attributes_for :issue_tracker,
     allow_destroy: true,
-    reject_if:     proc { |attrs| !ErrbitPlugin::Registry.issue_trackers.keys.map(&:to_s).include?(attrs[:type_tracker].to_s) }
+    reject_if:     proc { |attrs| ErrbitPlugin::Registry.issue_trackers.keys.map(&:to_s).exclude?(attrs[:type_tracker].to_s) }
   accepts_nested_attributes_for :notification_service,
     allow_destroy: true,
-    reject_if:     proc { |attrs| !NotificationService.subclasses.map(&:to_s).include?(attrs[:type].to_s) }
+    reject_if:     proc { |attrs| NotificationService.subclasses.map(&:to_s).exclude?(attrs[:type].to_s) }
   accepts_nested_attributes_for :notice_fingerprinter
 
   index({ name: "text" }, default_language: "english")
@@ -146,7 +146,7 @@ class App
 
   def notification_recipients
     if notify_all_users
-      (User.all.map(&:email).reject(&:blank?) + watchers.map(&:address)).uniq
+      (User.all.map(&:email).compact_blank + watchers.map(&:address)).uniq
     else
       watchers.map(&:address)
     end
@@ -213,7 +213,7 @@ private
 
     issue_tracker.valid?
     issue_tracker.errors.full_messages.each do |error|
-      errors[:base] << error
+      errors.add(:base, error)
     end if issue_tracker.errors
   end
 

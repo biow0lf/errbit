@@ -5,6 +5,7 @@ require:
 inherit_from: .rubocop_todo.yml
 
 AllCops:
+  NewCops: enable
   Exclude:
     - 'bin/*'
     - 'vendor/**/*'
@@ -55,7 +56,7 @@ Layout/SpaceAroundOperators:
 
 # long spec blocks are probably fine
 Metrics/BlockLength:
-  ExcludedMethods: ['describe', 'context']
+  AllowedMethods: ['describe', 'context']
 
 Naming/FileName:
   Exclude:

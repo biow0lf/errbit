@@ -26,9 +26,7 @@ class Api::V1::StatsController < ApplicationController
 private
 
   def require_api_key_or_authenticate_user!
-    if params[:api_key].present?
-      return true if (@app = App.where(api_key: params[:api_key]).first)
-    end
+    return true if params[:api_key].present? && (@app = App.where(api_key: params[:api_key]).first)
 
     authenticate_user!
   end

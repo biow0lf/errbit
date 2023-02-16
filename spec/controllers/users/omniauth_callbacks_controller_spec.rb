@@ -4,8 +4,8 @@ describe Users::OmniauthCallbacksController, type: 'controller' do
     request.env["devise.mapping"] = Devise.mappings[:user]
     request.env["omniauth.auth"] = Hashie::Mash.new(
       provider:    "github",
-      extra:       { raw_info: { login: login, email: email } },
-      credentials: { token: token }
+      extra:       { raw_info: { login:, email: } },
+      credentials: { token: }
     )
   end
 

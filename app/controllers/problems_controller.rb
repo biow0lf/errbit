@@ -71,14 +71,14 @@ class ProblemsController < ApplicationController
   end
 
   def close_issue
-    issue = Issue.new(problem: problem, user: current_user)
+    issue = Issue.new(problem:, user: current_user)
     flash[:error] = issue.errors.full_messages.join(', ') unless issue.close
 
     redirect_to app_problem_path(app, problem)
   end
 
   def create_issue
-    issue = Issue.new(problem: problem, user: current_user)
+    issue = Issue.new(problem:, user: current_user)
     issue.body = render_to_string(*issue.render_body_args)
 
     flash[:error] = issue.errors.full_messages.join(', ') unless issue.save

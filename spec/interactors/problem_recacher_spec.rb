@@ -18,7 +18,7 @@ describe ProblemRecacher do
         b = backtrace.clone
         b.lines[5][:number] = line_numbers.shift
         b.save!
-        notice = Fabricate(:notice, backtrace: b, app: app)
+        notice = Fabricate(:notice, backtrace: b, app:)
         notice.save!
         notice
       end

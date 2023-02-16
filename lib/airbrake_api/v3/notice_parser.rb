@@ -13,12 +13,12 @@ module AirbrakeApi
         {
           error_class:        error['type'],
           message:            error['message'],
-          backtrace:          backtrace,
-          request:            request,
-          server_environment: server_environment,
+          backtrace:,
+          request:,
+          server_environment:,
           api_key:            params['key'].present? ? params['key'] : params['project_id'],
           notifier:           context['notifier'] || params['notifier'],
-          user_attributes:    user_attributes
+          user_attributes:
         }
       end
 
@@ -70,7 +70,7 @@ module AirbrakeApi
 
       def user_attributes
         user = context['user']
-        return user.is_a?(Hash) ? user : { user: user } if user
+        return user.is_a?(Hash) ? user : { user: } if user
 
         {
           'id'       => context['userId'],

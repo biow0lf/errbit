@@ -255,7 +255,7 @@ describe ErrorReport do
         let(:email_at_notices) { [0] }
 
         it "sends email on 1st occurrence" do
-          1.times { described_class.new(xml).generate_notice! }
+          described_class.new(xml).generate_notice!
           expect(ActionMailer::Base.deliveries.length).to eq(1)
         end
 
@@ -274,7 +274,7 @@ describe ErrorReport do
         let(:email_at_notices) { [1, 3] }
 
         it "sends email on 1st occurrence" do
-          1.times { described_class.new(xml).generate_notice! }
+          described_class.new(xml).generate_notice!
           expect(ActionMailer::Base.deliveries.length).to eq(1)
         end
 

@@ -20,7 +20,7 @@ describe Watcher, type: 'model' do
   context 'address' do
     it "returns the user's email address if there is a user" do
       user = Fabricate(:user, email: 'foo@bar.com')
-      watcher = Fabricate(:user_watcher, user: user)
+      watcher = Fabricate(:user_watcher, user:)
       expect(watcher.address).to eq 'foo@bar.com'
     end
 

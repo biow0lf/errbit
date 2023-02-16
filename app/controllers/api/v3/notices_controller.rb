@@ -19,8 +19,8 @@ class Api::V3::NoticesController < ApplicationController
                     end
 
     # merge makes a copy, merge! edits in place
-    merged_params = merged_params.merge!('key' => request.headers['X-Airbrake-Token']) if request.headers['X-Airbrake-Token']
-    merged_params = merged_params.merge!('key' => authorization_token) if authorization_token
+    merged_params['key'] = request.headers['X-Airbrake-Token'] if request.headers['X-Airbrake-Token']
+    merged_params['key'] = authorization_token if authorization_token
     report = AirbrakeApi::V3::NoticeParser.new(merged_params).report
 
     return render body: UNKNOWN_API_KEY, status: :unprocessable_entity unless report.valid?

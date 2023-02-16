@@ -22,7 +22,7 @@ if defined? Flowdock
 
     def create_notification(problem)
       flow = Flowdock::Flow.new(
-        api_token: api_token,
+        api_token:,
         source:    "Errbit",
         from:      {
           name:    "Errbit",
@@ -32,7 +32,7 @@ if defined? Flowdock
       subject = "[#{problem.environment}] #{problem.message.to_s.truncate(100)}"
       url = app_problem_url problem.app, problem
       flow.push_to_team_inbox(
-        subject: subject,
+        subject:,
         content: content(problem, url),
         project: project_name(problem),
         link:    url
@@ -48,7 +48,7 @@ if defined? Flowdock
 
     def content(problem, url)
       full_description = "[#{problem.environment}][#{problem.where}] #{problem.message}"
-      <<-MSG.strip_heredoc
+      <<~MSG
         #{ERB::Util.html_escape full_description}<br>
         <a href="#{url}">#{url}</a>
       MSG

@@ -16,7 +16,7 @@ describe "Callback on Notice", type: 'model' do
           "project-root"     => "/path/to/sample/project",
           "environment-name" => "development"
         },
-        api_key:            api_key,
+        api_key:,
         notifier:           {
           "name"    => "Hoptoad Notifier",
           "version" => "2.3.2",
@@ -107,7 +107,7 @@ describe "Callback on Notice", type: 'model' do
       Fabricate(
         :app_with_watcher,
         notify_on_errs:       true,
-        notification_service: notification_service
+        notification_service:
       )
     end
     let(:notice_attrs) { notice_attrs_for.call(app.api_key) }
@@ -130,7 +130,7 @@ describe "Callback on Notice", type: 'model' do
   describe 'should not send a notification if a notification service is not' \
            'configured' do
     let(:notification_service) { Fabricate(:notification_service) }
-    let(:app) { Fabricate(:app, notification_service: notification_service) }
+    let(:app) { Fabricate(:app, notification_service:) }
     let(:notice_attrs) { notice_attrs_for.call(app.api_key) }
 
     before { Errbit::Config.per_app_notify_at_notices = true }
@@ -147,7 +147,7 @@ describe "Callback on Notice", type: 'model' do
     let(:notification_service) do
       Fabricate(:campfire_notification_service, notify_at_notices: [1, 2])
     end
-    let(:app) { Fabricate(:app, notification_service: notification_service) }
+    let(:app) { Fabricate(:app, notification_service:) }
     let(:notice_attrs) { notice_attrs_for.call(app.api_key) }
 
     before { Errbit::Config.per_app_notify_at_notices = true }

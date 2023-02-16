@@ -22,7 +22,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     github_login = request.env["omniauth.auth"].extra.raw_info.login
     github_token = request.env["omniauth.auth"].credentials.token
     github_site_title = Errbit::Config.github_site_title
-    github_user = User.where(github_login: github_login).first || github_auto_sign_up(github_token)
+    github_user = User.where(github_login:).first || github_auto_sign_up(github_token)
 
     # If user is already signed in, link github details to their account
     if current_user
@@ -52,7 +52,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
     google_uid = request.env["omniauth.auth"].uid
     google_email = request.env["omniauth.auth"].info.email
-    google_user = User.where(google_uid: google_uid).first
+    google_user = User.where(google_uid:).first
     google_site_title = Errbit::Config.google_site_title
     # If user is already signed in, link google details to their account
     if current_user
@@ -61,7 +61,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         flash[:error] = "User already registered with #{google_site_title} login '#{google_email}'!"
       else
         # Add google details to current user
-        current_user.update(google_uid: google_uid)
+        current_user.update(google_uid:)
         flash[:success] = "Successfully linked #{google_email} account!"
       end
       # User must have clicked 'link account' from their user page, so redirect there.

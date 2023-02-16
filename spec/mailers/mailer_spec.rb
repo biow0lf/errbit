@@ -55,9 +55,9 @@ describe Mailer do
     let(:error_report) do
       instance_double(
         'ErrorReport',
-        notice:  notice,
-        app:     app,
-        problem: problem
+        notice:,
+        app:,
+        problem:
       )
     end
     let(:email) do
@@ -69,7 +69,7 @@ describe Mailer do
     it_should_behave_like "a notification email"
 
     it "should html-escape the notice's message for the html part" do
-      email_html_body = email.body.parts.detect { |p| p.content_type.match(/html/) }.body.raw_source
+      email_html_body = email.body.parts.detect { |p| p.content_type.include?('html') }.body.raw_source
       expect(email_html_body).to match("class &lt; ActionController::Base")
     end
 
@@ -86,7 +86,7 @@ describe Mailer do
     end
 
     context 'with a very long message' do
-      let(:notice)  { Fabricate(:notice, message: 6.times.collect { |_a| "0123456789" }.join('')) }
+      let(:notice)  { Fabricate(:notice, message: 6.times.collect { |_a| "0123456789" }.join) }
       it "should truncate the long message" do
         expect(email.subject).to match(/ \d{47}\.{3}$/)
       end

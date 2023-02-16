@@ -9,13 +9,13 @@ describe Comment, type: 'model' do
 
   context 'notification_recipients' do
     let(:app) { Fabricate(:app) }
-    let!(:watcher) { Fabricate(:watcher, app: app) }
-    let(:err) { Fabricate(:problem, app: app) }
+    let!(:watcher) { Fabricate(:watcher, app:) }
+    let(:err) { Fabricate(:problem, app:) }
     let(:comment_user) { Fabricate(:user, email: 'author@example.com') }
-    let(:comment) { Fabricate.build(:comment, err: err, user: comment_user) }
+    let(:comment) { Fabricate.build(:comment, err:, user: comment_user) }
 
     before do
-      Fabricate(:user_watcher, app: app, user: comment_user)
+      Fabricate(:user_watcher, app:, user: comment_user)
     end
 
     it 'includes app notification_recipients except user email' do
@@ -25,13 +25,13 @@ describe Comment, type: 'model' do
 
   context 'emailable?' do
     let(:app) { Fabricate(:app, notify_on_errs: true) }
-    let!(:watcher) { Fabricate(:watcher, app: app) }
-    let(:err) { Fabricate(:problem, app: app) }
+    let!(:watcher) { Fabricate(:watcher, app:) }
+    let(:err) { Fabricate(:problem, app:) }
     let(:comment_user) { Fabricate(:user, email: 'author@example.com') }
-    let(:comment) { Fabricate.build(:comment, err: err, user: comment_user) }
+    let(:comment) { Fabricate.build(:comment, err:, user: comment_user) }
 
     before do
-      Fabricate(:user_watcher, app: app, user: comment_user)
+      Fabricate(:user_watcher, app:, user: comment_user)
     end
 
     it 'should be true if app is emailable? and there are notification recipients' do

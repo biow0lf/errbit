@@ -133,13 +133,13 @@ describe App, type: 'model' do
   context "emailable?" do
     it "should be true if notify on errs and there are notification recipients" do
       app = Fabricate(:app, notify_on_errs: true, notify_all_users: false)
-      2.times { Fabricate(:watcher, app: app) }
+      2.times { Fabricate(:watcher, app:) }
       expect(app.emailable?).to be(true)
     end
 
     it "should be false if notify on errs is disabled" do
       app = Fabricate(:app, notify_on_errs: false, notify_all_users: false)
-      2.times { Fabricate(:watcher, app: app) }
+      2.times { Fabricate(:watcher, app:) }
       expect(app.emailable?).to be(false)
     end
 
@@ -175,7 +175,7 @@ describe App, type: 'model' do
     it 'returns the correct err if one already exists' do
       existing = Fabricate(
         :err,
-        problem:     Fabricate(:problem, app: app),
+        problem:     Fabricate(:problem, app:),
         fingerprint: conditions[:fingerprint]
       )
       expect(Err.where(fingerprint: conditions[:fingerprint]).first).to eq existing
