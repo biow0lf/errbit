@@ -63,6 +63,7 @@ gem 'net-imap'
 gem 'rexml'
 
 gem 'pry-rails'
+gem 'pry-byebug'
 
 group :development, :test do
   gem 'airbrake', '~> 4.3.5', require: false

@@ -547,8 +547,8 @@ describe Problem, type: 'model' do
     end
 
     context "with several notices" do
-      let!(:notice_2) { Fabricate(:notice, err: first_errs.first) }
-      let!(:notice_3) { Fabricate(:notice, err: first_errs.first) }
+      let!(:notice2) { Fabricate(:notice, err: first_errs.first) }
+      let!(:notice3) { Fabricate(:notice, err: first_errs.first) }
       before do
         problem.update_attributes!(messages: {})
         problem.recache

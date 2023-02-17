@@ -1,12 +1,12 @@
 describe "problems/index.html.haml", type: 'view' do
-  let(:problem_1) { Fabricate(:problem) }
-  let(:problem_2) { Fabricate(:problem, app: problem_1.app) }
+  let(:problem1) { Fabricate(:problem) }
+  let(:problem2) { Fabricate(:problem, app: problem1.app) }
 
   before do
     allow(view).to receive(:selected_problems).and_return([])
     allow(view).to receive(:all_errs).and_return(false)
     allow(view).to receive(:problems).and_return(
-      Kaminari.paginate_array([problem_1, problem_2]).page(1).per(10)
+      Kaminari.paginate_array([problem1, problem2]).page(1).per(10)
     )
     allow(view).to receive(:params_sort).and_return('last_notice_at')
     allow(view).to receive(:params_order).and_return('asc')
@@ -14,7 +14,7 @@ describe "problems/index.html.haml", type: 'view' do
   end
 
   describe "with problem" do
-    before { problem_1 && problem_2 }
+    before { problem1 && problem2 }
 
     it 'should works' do
       render

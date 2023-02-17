@@ -166,6 +166,8 @@ Lint/UselessAccessModifier:
 # Offense count: 35
 Metrics/AbcSize:
   Max: 54
+  Exclude:
+    - 'app/controllers/users/omniauth_callbacks_controller.rb'
 
 # Offense count: 8
 # Configuration parameters: CountComments, ExcludedMethods.
@@ -181,6 +183,8 @@ Metrics/ClassLength:
 # Offense count: 6
 Metrics/CyclomaticComplexity:
   Max: 11
+  Exclude:
+    - 'lib/hoptoad/v2.rb'
 
 # Offense count: 36
 # Configuration parameters: CountComments, ExcludedMethods.
@@ -190,6 +194,8 @@ Metrics/MethodLength:
 # Offense count: 5
 Metrics/PerceivedComplexity:
   Max: 12
+  Exclude:
+    - 'lib/hoptoad/v2.rb'
 
 # Offense count: 3
 # Configuration parameters: EnforcedStyleForLeadingUnderscores.
@@ -672,6 +678,9 @@ Style/RedundantInterpolation:
 Style/ZeroLengthPredicate:
   Exclude:
     - 'app/interactors/notice_refingerprinter.rb'
+
+Rails/I18nLocaleTexts:
+  Enabled: false
 
 # Offense count: 503
 # Cop supports --auto-correct.

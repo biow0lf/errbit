@@ -23,13 +23,10 @@ class Api::V1::ProblemsController < ApplicationController
 
   def show
     result = benchmark("[api/v1/problems_controller/show] query time") do
-      begin
-        Problem.only(FIELDS).find(params[:id])
-      rescue Mongoid::Errors::DocumentNotFound
-        head :not_found
-        return false
-      end
+      Problem.only(FIELDS).where(id: params[:id]).first
     end
+
+    return head :not_found unless result
 
     respond_to do |format|
       format.any(:html, :json) { render json: result } # render JSON if no extension specified on path

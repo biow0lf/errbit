@@ -28,19 +28,21 @@ namespace :errbit do
       message:     "unexpected tSTRING_BEG, expecting keyword_do or '{' or '('"
     }]
 
-    RANDOM_METHODS = ActiveSupport.methods.shuffle[1..8]
-
     def random_backtrace
+      random_methods = ActiveSupport.methods.shuffle[1..8]
+
       backtrace = []
       99.times do |t|
         backtrace << {
           'number' => t.hash % 1000,
           'file'   => "/path/to/file.rb",
-          'method' => RANDOM_METHODS.sample.to_s
+          'method' => random_methods.sample.to_s
         }
       end
       backtrace
     end
+
+    post_ids = [111, 222, 333]
 
     errors.each do |error_template|
       rand(34).times do
@@ -53,7 +55,7 @@ namespace :errbit do
             request:            {
               'component' => 'main',
               'action'    => 'error',
-              'url'       => "http://example.com/post/#{[111, 222, 333].sample}"
+              'url'       => "http://example.com/post/#{post_ids.sample}"
             },
             server_environment: { 'environment-name' => Rails.env.to_s },
             notifier:           { name: "seeds.rb" },

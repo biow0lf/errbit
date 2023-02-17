@@ -2,7 +2,7 @@
 
 module Errbit
   class Version
-    def initialize(ver, dev = false)
+    def initialize(ver, dev: false)
       @version = ver
       @dev = dev
     end
@@ -22,5 +22,5 @@ module Errbit
     end
   end
 
-  VERSION = Version.new('0.10.0', true).full_version
+  VERSION = Version.new('0.10.0', dev: true).full_version
 end

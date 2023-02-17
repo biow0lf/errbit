@@ -9,25 +9,25 @@ describe Errbit::VERSION do
     end
 
     it 'does not use a commit sha' do
-      allow(ENV).to receive(:[]).with('SOURCE_VERSION') { 'abcd1234efgh56789' }
+      allow(ENV).to receive(:fetch).with('SOURCE_VERSION', nil) { 'abcd1234efgh56789' }
       expect(subject).to eq(version)
     end
   end
 
   context "dev version" do
-    subject { Errbit::Version.new(version, true).full_version }
+    subject { Errbit::Version.new(version, dev: true).full_version }
 
     it 'generates a dev version' do
       expect(subject).to end_with('dev')
     end
 
     it 'handles a missing commit sha' do
-      allow(ENV).to receive(:[]).with('SOURCE_VERSION') { nil }
+      allow(ENV).to receive(:fetch).with('SOURCE_VERSION', nil) { nil }
       expect(subject).to end_with('dev')
     end
 
     it 'shortens a present commit sha' do
-      allow(ENV).to receive(:[]).with('SOURCE_VERSION') { 'abcd1234efgh56789' }
+      allow(ENV).to receive(:fetch).with('SOURCE_VERSION', nil) { 'abcd1234efgh56789' }
       expect(subject).to end_with('dev-abcd1234')
     end
   end

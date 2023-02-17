@@ -9,6 +9,7 @@ AllCops:
   Exclude:
     - 'bin/*'
     - 'vendor/**/*'
+  SuggestExtensions: false
 
 # Caveat: .find_by raises exception in mongoid, unlike ActiveRecord which
 # returns nil
@@ -57,6 +58,21 @@ Layout/SpaceAroundOperators:
 # long spec blocks are probably fine
 Metrics/BlockLength:
   AllowedMethods: ['describe', 'context']
+
+Lint/RefinementImportMethods:
+  # A bug prevents this from running on config/initializers/notification_services.rb
+  Enabled: false
+
+Style/OpenStructUse:
+  Enabled: false
+
+Rails/ApplicationController:
+  # We have some controllers that should not extend ApplicationController
+  Enabled: false
+
+Rails/WhereExists:
+  # Not safe for mongoid
+  Enabled: false
 
 Naming/FileName:
   Exclude:
