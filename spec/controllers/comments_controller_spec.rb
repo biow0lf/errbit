@@ -1,6 +1,6 @@
 describe CommentsController, type: 'controller' do
   let(:app) { Fabricate(:app) }
-  let(:err) { Fabricate(:err, problem: Fabricate(:problem, app: app, environment: "production")) }
+  let(:err) { Fabricate(:err, problem: Fabricate(:problem, app:, environment: "production")) }
 
   describe "POST /apps/:app_id/errs/:id/comments/create" do
     render_views

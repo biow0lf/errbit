@@ -2,7 +2,7 @@
 
 module Errbit
   class Version
-    def initialize(ver, dev = false)
+    def initialize(ver, dev: false)
       @version = ver
       @dev = dev
     end
@@ -17,10 +17,10 @@ module Errbit
     end
 
     def source_version
-      source_version = ENV['SOURCE_VERSION']
+      source_version = ENV.fetch('SOURCE_VERSION', nil)
       source_version[0...8] if source_version.present?
     end
   end
 
-  VERSION = Version.new('0.10.0', true).full_version
+  VERSION = Version.new('0.10.0', dev: true).full_version
 end

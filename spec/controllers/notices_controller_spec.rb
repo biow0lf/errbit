@@ -2,9 +2,9 @@ describe NoticesController, type: 'controller' do
   it_requires_authentication for: { locate: :get }
 
   let(:notice) { Fabricate(:notice) }
-  let(:xml) { Rails.root.join('spec', 'fixtures', 'hoptoad_test_notice.xml').read }
+  let(:xml) { Rails.root.join('spec/fixtures/hoptoad_test_notice.xml').read }
   let(:app) { Fabricate(:app) }
-  let(:error_report) { double(valid?: true, generate_notice!: true, notice: notice, should_keep?: true) }
+  let(:error_report) { double(valid?: true, generate_notice!: true, notice:, should_keep?: true) }
 
   context 'notices API' do
     context "with bogus xml" do
@@ -75,8 +75,8 @@ describe NoticesController, type: 'controller' do
       end
 
       it "should locate notice and redirect to problem" do
-        problem = Fabricate(:problem, app: app, environment: "production")
-        notice = Fabricate(:notice, err: Fabricate(:err, problem: problem))
+        problem = Fabricate(:problem, app:, environment: "production")
+        notice = Fabricate(:notice, err: Fabricate(:err, problem:))
         get :locate, params: { id: notice.id }
         expect(response).to redirect_to(app_problem_path(problem.app, problem))
       end
@@ -91,8 +91,8 @@ describe NoticesController, type: 'controller' do
       end
 
       it "should locate notice and redirect to problem with notice_id" do
-        problem = Fabricate(:problem, app: app, environment: "production")
-        notice = Fabricate(:notice, err: Fabricate(:err, problem: problem))
+        problem = Fabricate(:problem, app:, environment: "production")
+        notice = Fabricate(:notice, err: Fabricate(:err, problem:))
         get :show_by_id, params: { id: notice.id }
         expect(response).to redirect_to(app_problem_path(problem.app, problem, notice_id: notice.id))
       end

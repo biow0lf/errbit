@@ -1,5 +1,6 @@
 class IssueTrackerFieldDecorator < Draper::Decorator
   def initialize(field, field_info)
+    super(field)
     @object = field
     @field_info = field_info
   end

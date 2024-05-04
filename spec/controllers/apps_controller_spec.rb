@@ -5,29 +5,29 @@ describe AppsController, type: 'controller' do
   let(:app_params) { { name: 'BestApp' } }
   let(:admin) { Fabricate(:admin) }
   let(:user) { Fabricate(:user) }
-  let(:watcher) { Fabricate(:user_watcher, app: app, user: user) }
+  let(:watcher) { Fabricate(:user_watcher, app:, user:) }
   let(:unwatched_app) { Fabricate(:app) }
   let(:app) { unwatched_app }
   let(:watched_app1) do
     a = Fabricate(:app)
-    Fabricate(:user_watcher, user: user, app: a)
+    Fabricate(:user_watcher, user:, app: a)
     a
   end
   let(:watched_app2) do
     a = Fabricate(:app)
-    Fabricate(:user_watcher, user: user, app: a)
+    Fabricate(:user_watcher, user:, app: a)
     a
   end
   let(:err) do
-    Fabricate(:err, problem: problem)
+    Fabricate(:err, problem:)
   end
   let(:notice) do
-    Fabricate(:notice, err: err)
+    Fabricate(:notice, err:)
   end
   let(:problem) do
-    Fabricate(:problem, app: app)
+    Fabricate(:problem, app:)
   end
-  let(:problem_resolved) { Fabricate(:problem_resolved, app: app) }
+  let(:problem_resolved) { Fabricate(:problem_resolved, app:) }
   let(:notice_fingerprinter) do
     nf = SiteConfig.document.notice_fingerprinter
     nf.backtrace_lines = 10
@@ -87,7 +87,7 @@ describe AppsController, type: 'controller' do
 
       context "pagination" do
         before(:each) do
-          35.times { Fabricate(:err, problem: Fabricate(:problem, app: app)) }
+          35.times { Fabricate(:err, problem: Fabricate(:problem, app:)) }
         end
 
         it "should have default per_page value for user" do
@@ -126,7 +126,7 @@ describe AppsController, type: 'controller' do
         before(:each) do
           environments = %w(production test development staging)
           20.times do |i|
-            Fabricate(:problem, app: app, environment: environments[i % environments.length])
+            Fabricate(:problem, app:, environment: environments[i % environments.length])
           end
         end
 
@@ -253,7 +253,7 @@ describe AppsController, type: 'controller' do
       context "changing name" do
         it "should redirect to app page" do
           id = @app.id
-          put :update, params: { id: id, app: { name: "new name" } }
+          put :update, params: { id:, app: { name: "new name" } }
           expect(response).to redirect_to(app_path(id))
         end
       end
@@ -310,7 +310,7 @@ describe AppsController, type: 'controller' do
 
       context "selecting 'use site fingerprinter'" do
         before(:each) do
-          SiteConfig.document.update!(notice_fingerprinter: notice_fingerprinter)
+          SiteConfig.document.update!(notice_fingerprinter:)
 
           put :update, params: {
             id:  @app.id,
@@ -334,7 +334,7 @@ describe AppsController, type: 'controller' do
 
       context "not selecting 'use site fingerprinter'" do
         before(:each) do
-          SiteConfig.document.update_attributes(notice_fingerprinter: notice_fingerprinter)
+          SiteConfig.document.update_attributes(notice_fingerprinter:)
           put :update, params: { id: @app.id, app: {
             notice_fingerprinter_attributes: { backtrace_lines: 42 },
             use_site_fingerprinter:          '0'

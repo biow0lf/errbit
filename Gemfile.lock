@@ -67,6 +67,7 @@ GEM
     bson (4.15.0)
     bson (4.15.0-java)
     builder (3.2.4)
+    byebug (11.1.3)
     campy (1.0.0)
     capybara (3.37.1)
       addressable
@@ -176,8 +177,6 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
-    jaro_winkler (1.5.4)
-    jaro_winkler (1.5.4-java)
     jquery-rails (4.5.0)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -324,6 +323,9 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
       spoon (~> 0.0)
+    pry-byebug (3.10.1)
+      byebug (~> 11.0)
+      pry (>= 0.13, < 0.15)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (5.0.0)
@@ -403,18 +405,25 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.1)
-    rubocop (0.71.0)
-      jaro_winkler (~> 1.5.1)
+    rubocop (1.42.0)
+      json (~> 2.3)
       parallel (~> 1.10)
-      parser (>= 2.6)
+      parser (>= 3.1.2.1)
       rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.24.1, < 2.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 1.4.0, < 1.7)
-    rubocop-performance (1.6.1)
-      rubocop (>= 0.71.0)
-    rubocop-rails (2.0.1)
+      unicode-display_width (>= 1.4.0, < 3.0)
+    rubocop-ast (1.24.1)
+      parser (>= 3.1.1.0)
+    rubocop-performance (1.16.0)
+      rubocop (>= 1.7.0, < 2.0)
+      rubocop-ast (>= 0.4.0)
+    rubocop-rails (2.17.4)
+      activesupport (>= 4.2.0)
       rack (>= 1.1)
-      rubocop (>= 0.70.0)
+      rubocop (>= 1.33.0, < 2.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     rushover (0.3.0)
@@ -538,6 +547,7 @@ DEPENDENCIES
   phantomjs
   pjax_rails
   poltergeist
+  pry-byebug
   pry-rails
   puma
   rack-ssl
@@ -551,7 +561,7 @@ DEPENDENCIES
   rspec
   rspec-activemodel-mocks
   rspec-rails
-  rubocop (~> 0.71.0)
+  rubocop
   rubocop-performance
   rubocop-rails
   rushover

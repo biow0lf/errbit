@@ -18,7 +18,7 @@ end
 
 describe ErrorReport do
   let(:xml) do
-    Rails.root.join('spec', 'fixtures', 'hoptoad_test_notice.xml').read
+    Rails.root.join('spec/fixtures/hoptoad_test_notice.xml').read
   end
 
   let(:error_report) { ErrorReport.new(xml) }
@@ -53,7 +53,7 @@ describe ErrorReport do
 
     context "with a minimal notice" do
       let(:xml) do
-        Rails.root.join('spec', 'fixtures', 'minimal_test_notice.xml').read
+        Rails.root.join('spec/fixtures/minimal_test_notice.xml').read
       end
 
       it 'save a notice' do
@@ -255,7 +255,7 @@ describe ErrorReport do
         let(:email_at_notices) { [0] }
 
         it "sends email on 1st occurrence" do
-          1.times { described_class.new(xml).generate_notice! }
+          described_class.new(xml).generate_notice!
           expect(ActionMailer::Base.deliveries.length).to eq(1)
         end
 
@@ -274,7 +274,7 @@ describe ErrorReport do
         let(:email_at_notices) { [1, 3] }
 
         it "sends email on 1st occurrence" do
-          1.times { described_class.new(xml).generate_notice! }
+          described_class.new(xml).generate_notice!
           expect(ActionMailer::Base.deliveries.length).to eq(1)
         end
 
@@ -300,7 +300,7 @@ describe ErrorReport do
 
     context "with xml without request section" do
       let(:xml) do
-        Rails.root.join('spec', 'fixtures', 'hoptoad_test_notice_without_request_section.xml').read
+        Rails.root.join('spec/fixtures/hoptoad_test_notice_without_request_section.xml').read
       end
       it "save a notice" do
         expect do
@@ -313,7 +313,7 @@ describe ErrorReport do
 
     context "with xml with only a single line of backtrace" do
       let(:xml) do
-        Rails.root.join('spec', 'fixtures', 'hoptoad_test_notice_with_one_line_of_backtrace.xml').read
+        Rails.root.join('spec/fixtures/hoptoad_test_notice_with_one_line_of_backtrace.xml').read
       end
       it "save a notice" do
         expect do

@@ -11,7 +11,7 @@ describe NoticeRefingerprinter do
   context 'identical backtraces' do
     let(:notices) do
       5.times.map do
-        notice = Fabricate(:notice, backtrace: backtrace, app: app)
+        notice = Fabricate(:notice, backtrace:, app:)
         notice.save!
         notice
       end
@@ -30,7 +30,7 @@ describe NoticeRefingerprinter do
         b = backtrace.clone
         b.lines[5][:number] = line_numbers.shift
         b.save!
-        notice = Fabricate(:notice, backtrace: b, app: app)
+        notice = Fabricate(:notice, backtrace: b, app:)
         notice.save!
       end
     end

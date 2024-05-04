@@ -39,10 +39,10 @@ describe Problem, type: 'model' do
       problem = err.problem
       expect(problem).to_not be_nil
 
-      notice1 = Fabricate(:notice, err: err)
+      notice1 = Fabricate(:notice, err:)
       expect(problem.last_notice_at).to eq notice1.reload.created_at
 
-      notice2 = Fabricate(:notice, err: err)
+      notice2 = Fabricate(:notice, err:)
       expect(problem.last_notice_at).to eq notice2.reload.created_at
     end
   end
@@ -53,10 +53,10 @@ describe Problem, type: 'model' do
       problem = err.problem
       expect(problem).to_not be_nil
 
-      notice1 = Fabricate(:notice, err: err)
+      notice1 = Fabricate(:notice, err:)
       expect(problem.first_notice_at.to_i).to be_within(1).of(notice1.created_at.to_i)
 
-      Fabricate(:notice, err: err)
+      Fabricate(:notice, err:)
       expect(problem.first_notice_at.to_i).to be_within(1).of(notice1.created_at.to_i)
     end
   end
@@ -66,7 +66,7 @@ describe Problem, type: 'model' do
       err = Fabricate(:err)
       problem = err.problem
       expect do
-        Fabricate(:notice, err: err, message: 'ERR 1')
+        Fabricate(:notice, err:, message: 'ERR 1')
       end.to change(problem, :message).from(nil).to('ERR 1')
     end
   end
@@ -76,7 +76,7 @@ describe Problem, type: 'model' do
       it 'should not send an email notification' do
         app = Fabricate(:app_with_watcher, notify_on_errs: false)
         expect(Mailer).to_not receive(:err_notification)
-        Fabricate(:problem, app: app)
+        Fabricate(:problem, app:)
       end
     end
   end
@@ -188,9 +188,9 @@ describe Problem, type: 'model' do
       end
       it 'finds with notice_id as argument' do
         app = Fabricate(:app)
-        problem = Fabricate(:problem, app: app)
-        err = Fabricate(:err, problem: problem)
-        notice = Fabricate(:notice, err: err, message: 'ERR 1')
+        problem = Fabricate(:problem, app:)
+        err = Fabricate(:err, problem:)
+        notice = Fabricate(:notice, err:, message: 'ERR 1')
 
         problem2 = Fabricate(:problem, where: 'cyril')
         expect(problem2).to_not eq(problem)
@@ -322,7 +322,7 @@ describe Problem, type: 'model' do
 
   context "#app_name" do
     let!(:app) { Fabricate(:app) }
-    let!(:problem) { Fabricate(:problem, app: app) }
+    let!(:problem) { Fabricate(:problem, app:) }
 
     before { app.reload }
 
@@ -445,11 +445,11 @@ describe Problem, type: 'model' do
   describe "#issue_type" do
     context "without issue_type fill in Problem" do
       let(:problem) do
-        Problem.new(app: app)
+        Problem.new(app:)
       end
 
       let(:app) do
-        App.new(issue_tracker: issue_tracker)
+        App.new(issue_tracker:)
       end
 
       context "without issue_tracker associate to app" do
@@ -547,8 +547,8 @@ describe Problem, type: 'model' do
     end
 
     context "with several notices" do
-      let!(:notice_2) { Fabricate(:notice, err: first_errs.first) }
-      let!(:notice_3) { Fabricate(:notice, err: first_errs.first) }
+      let!(:notice2) { Fabricate(:notice, err: first_errs.first) }
+      let!(:notice3) { Fabricate(:notice, err: first_errs.first) }
       before do
         problem.update_attributes!(messages: {})
         problem.recache

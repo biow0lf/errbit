@@ -9,15 +9,15 @@ describe NotificationServices::SlackService, type: 'model' do
       { number: 8, file: "/path/to/file/6.rb", method: 'sixth_method' }
     ]
   end
-  let(:notice) { Fabricate :notice, backtrace: backtrace }
+  let(:notice) { Fabricate :notice, backtrace: }
   let(:problem) { notice.problem }
   let(:service_url) do
     "https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX"
   end
   let(:service) do
     Fabricate :slack_notification_service, app:         notice.app,
-                                           service_url: service_url,
-                                           room_id:     room_id
+                                           service_url:,
+                                           room_id:
   end
   let(:room_id) do
     "#general"

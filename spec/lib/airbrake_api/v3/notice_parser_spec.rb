@@ -55,7 +55,7 @@ describe AirbrakeApi::V3::NoticeParser do
   end
 
   it 'parses JSON payload with missing backtrace' do
-    json = Rails.root.join('spec', 'fixtures', 'api_v3_request_without_backtrace.json').read
+    json = Rails.root.join('spec/fixtures/api_v3_request_without_backtrace.json').read
     params = JSON.parse(json)
     params['key'] = app.api_key
 
@@ -120,7 +120,7 @@ describe AirbrakeApi::V3::NoticeParser do
   end
 
   def build_params_for(fixture, options = {})
-    json = Rails.root.join('spec', 'fixtures', fixture).read
+    json = Rails.root.join('spec/fixtures', fixture).read
     data = JSON.parse(json)
 
     data['key'] = options[:key] if options.key?(:key)

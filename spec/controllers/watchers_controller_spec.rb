@@ -7,7 +7,7 @@ describe WatchersController, type: 'controller' do
   describe "#destroy" do
     let(:app) do
       a = Fabricate(:app)
-      Fabricate(:user_watcher, app: a, user: user)
+      Fabricate(:user_watcher, app: a, user:)
       a
     end
 

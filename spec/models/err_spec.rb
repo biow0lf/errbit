@@ -9,7 +9,7 @@ describe Err, type: 'model' do
     it 'requires a problem' do
       err = Fabricate.build(:err, problem_id: nil, problem: nil)
       expect(err).to_not be_valid
-      expect(err.errors[:problem_id]).to include("can't be blank")
+      expect(err.errors.messages_for(:problem)).to include("can't be blank")
     end
   end
 end

@@ -13,8 +13,8 @@ class Backtrace
   def self.find_or_create(lines)
     fingerprint = generate_fingerprint(lines)
 
-    where(fingerprint: fingerprint).find_one_and_update(
-      { '$setOnInsert' => { fingerprint: fingerprint, lines: lines } },
+    where(fingerprint:).find_one_and_update(
+      { '$setOnInsert' => { fingerprint:, lines: } },
       return_document: :after, upsert: true)
   end
 

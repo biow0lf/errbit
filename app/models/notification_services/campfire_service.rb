@@ -28,7 +28,7 @@ if defined? Campy
 
     def create_notification(problem)
       # build the campfire client
-      campy = Campy::Room.new(account: subdomain, token: api_token, room_id: room_id)
+      campy = Campy::Room.new(account: subdomain, token: api_token, room_id:)
       # post the issue to the campfire room
       campy.speak "[errbit] #{problem.app.name} #{notification_description problem} - #{Errbit::Config.protocol}://#{Errbit::Config.host}/apps/#{problem.app.id}/problems/#{problem.id}"
     end

@@ -19,7 +19,7 @@ describe Backtrace, type: 'model' do
       described_class.find_or_create(lines)
       described_class.find_or_create(lines)
 
-      expect(Backtrace.where(fingerprint: fingerprint).count).to eq(1)
+      expect(Backtrace.where(fingerprint:).count).to eq(1)
     end
   end
 end

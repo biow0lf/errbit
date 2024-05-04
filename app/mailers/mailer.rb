@@ -2,15 +2,8 @@
 # This is only necessary when sending test emails (i.e. from rake hoptoad:test)
 require Rails.root.join('config/routes.rb')
 
-class Mailer < ActionMailer::Base
+class Mailer < ApplicationMailer
   helper ApplicationHelper
-
-  default :from                      => Errbit::Config.email_from,
-          'X-Errbit-Host'            => Errbit::Config.host,
-          'X-Mailer'                 => 'Errbit',
-          'X-Auto-Response-Suppress' => 'OOF, AutoReply',
-          'Precedence'               => 'bulk',
-          'Auto-Submitted'           => 'auto-generated'
 
   def err_notification(error_report)
     @notice   = NoticeDecorator.new error_report.notice

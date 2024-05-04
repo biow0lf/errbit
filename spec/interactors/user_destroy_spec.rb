@@ -3,7 +3,7 @@ describe UserDestroy do
     Fabricate(
       :app,
       watchers: [
-        Fabricate.build(:user_watcher, user: user)
+        Fabricate.build(:user_watcher, user:)
       ])
   end
 

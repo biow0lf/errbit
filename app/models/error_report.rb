@@ -15,17 +15,7 @@ require 'hoptoad_notifier'
 # * <tt>:notifier</tt> - information to identify the source of the error report
 #
 class ErrorReport
-  attr_reader :api_key
-  attr_reader :error_class
-  attr_reader :framework
-  attr_reader :message
-  attr_reader :notice
-  attr_reader :notifier
-  attr_reader :problem
-  attr_reader :problem_was_resolved
-  attr_reader :request
-  attr_reader :server_environment
-  attr_reader :user_attributes
+  attr_reader :api_key, :error_class, :framework, :message, :notice, :notifier, :problem, :problem_was_resolved, :request, :server_environment, :user_attributes
 
   def initialize(xml_or_attributes)
     @attributes = xml_or_attributes
@@ -41,7 +31,7 @@ class ErrorReport
   end
 
   def app
-    @app ||= App.where(api_key: api_key).first
+    @app ||= App.where(api_key:).first
   end
 
   def backtrace
@@ -65,15 +55,15 @@ class ErrorReport
 
   def make_notice
     @notice = Notice.new(
-      app:                app,
-      message:            message,
-      error_class:        error_class,
-      backtrace:          backtrace,
-      request:            request,
-      server_environment: server_environment,
-      notifier:           notifier,
-      user_attributes:    user_attributes,
-      framework:          framework
+      app:,
+      message:,
+      error_class:,
+      backtrace:,
+      request:,
+      server_environment:,
+      notifier:,
+      user_attributes:,
+      framework:
     )
   end
 
@@ -122,9 +112,9 @@ class ErrorReport
   # @return [ Error ]
   def error
     @error ||= app.find_or_create_err!(
-      error_class: error_class,
+      error_class:,
       environment: rails_env,
-      fingerprint: fingerprint
+      fingerprint:
     )
   end
 

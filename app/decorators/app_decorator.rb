@@ -30,7 +30,7 @@ class AppDecorator < Draper::Decorator
   end
 
   def custom_backtrace_url(file, line)
-    format(custom_backtrace_url_template, branch: object.repo_branch, file: file, line: line,
+    format(custom_backtrace_url_template, branch: object.repo_branch, file:, line:,
                                           ebranch: CGI.escape(object.repo_branch), efile: CGI.escape(file))
   end
 end

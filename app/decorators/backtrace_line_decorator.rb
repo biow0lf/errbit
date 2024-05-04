@@ -35,14 +35,14 @@ class BacktraceLineDecorator < Draper::Decorator
     "#{file_relative}:#{number}#{column.present? ? ":#{column}" : ''}"
   end
 
-  def link_to_source_file(app, &block)
-    text = h.capture_haml(&block)
+  def link_to_source_file(app, &)
+    text = h.capture_haml(&)
     link_to_in_app_source_file(app, text) || text
   end
 
   def path
     return '' if file.blank?
-    File.dirname(file).gsub(/^\.$/, '') + "/"
+    "#{File.dirname(file).gsub(/^\.$/, '')}/"
   end
 
   def decorated_path

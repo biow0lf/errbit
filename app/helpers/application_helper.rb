@@ -43,7 +43,7 @@ module ApplicationHelper
     percent = 100.0 / total.to_f
     rows    = tallies.map { |value, count| [(count.to_f * percent), value] }. \
       sort { |a, b| b[0] <=> a[0] }
-    render "problems/tally_table", rows: rows
+    render "problems/tally_table", rows:
   end
 
   def head(collection)
@@ -51,7 +51,7 @@ module ApplicationHelper
   end
 
   def tail(collection)
-    collection.to_a[head_size..-1].to_a
+    collection.to_a[head_size..].to_a
   end
 
   def issue_tracker_types

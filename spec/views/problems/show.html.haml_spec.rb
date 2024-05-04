@@ -113,7 +113,7 @@ describe "problems/show.html.haml", type: 'view' do
       let(:app) { Fabricate(:app, github_repo: "test_user/test_repo") }
 
       it 'should allow creating issue for github if application has a github tracker' do
-        problem = Fabricate(:problem_with_comments, app: app)
+        problem = Fabricate(:problem_with_comments, app:)
         with_issue_tracker("github", problem)
         allow(view).to receive(:problem).and_return(problem)
         allow(view).to receive(:app).and_return(problem.app)
@@ -123,7 +123,7 @@ describe "problems/show.html.haml", type: 'view' do
       end
 
       context "without issue tracker associate on app" do
-        let(:problem) { Problem.new(new_record: false, app: app) }
+        let(:problem) { Problem.new(new_record: false, app:) }
         let(:app) { App.new(new_record: false) }
 
         it 'not see link to create issue' do
@@ -139,7 +139,7 @@ describe "problems/show.html.haml", type: 'view' do
 
         context "with app having github_repo" do
           let(:app) { App.new(new_record: false, github_repo: 'foo/bar') }
-          let(:problem) { Problem.new(new_record: false, app: app) }
+          let(:problem) { Problem.new(new_record: false, app:) }
 
           before do
             problem.issue_link = nil

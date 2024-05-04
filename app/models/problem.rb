@@ -226,14 +226,14 @@ class Problem
   end
 
   def unmerge!
-    attrs = { error_class: error_class, environment: environment }
+    attrs = { error_class:, environment: }
     problem_errs = errs.to_a
 
     # associate and return all the problems
     new_problems = [self]
 
     # create new problems for each err that needs one
-    (problem_errs[1..-1] || []).each do |err|
+    (problem_errs[1..] || []).each do |err|
       new_problems << app.problems.create(attrs)
       err.update_attribute(:problem, new_problems.last)
     end
@@ -245,7 +245,7 @@ class Problem
 
   def grouped_notice_counts(since, group_by = 'day')
     key_op = [['year', '$year'], ['day', '$dayOfYear'], ['hour', '$hour']]
-    key_op = key_op.take(1 + key_op.find_index { |key, _op| group_by == key })
+    key_op = key_op.take(key_op.find_index { |key, _op| group_by == key } + 1)
     project_date_fields = Hash[*key_op.collect { |key, op| [key, { op => "$created_at" }] }.flatten]
     group_id_fields = Hash[*key_op.collect { |key, _op| [key, "$#{key}"] }.flatten]
     pipeline = [
@@ -282,7 +282,7 @@ class Problem
     zero_filled = zero_filled_grouped_noticed_counts(since, group_by).map { |h| h.values.first }
     max = zero_filled.max
     zero_filled.map do |number|
-      max.zero? ? 0 : number.to_f / max.to_f * 100.0
+      max.zero? ? 0 : number.to_f / max * 100.0
     end
   end
 

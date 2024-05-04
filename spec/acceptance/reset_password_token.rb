@@ -6,7 +6,7 @@ feature 'password reset token' do
   scenario 'receives correct password reset token' do
     host = ActionMailer::Base.default_url_options.values_at(:host).first
     port = ActionMailer::Base.default_url_options.values_at(:port).first
-    port = port.blank? ? '' : ':' + port
+    port = port.blank? ? '' : ":#{port}"
     regex = %r{http://#{host}#{port}/users/password/edit\?reset_password_token=([A-Za-z0-9\-_]+)}
 
     visit 'https://brighterr.herokuapp.com/users/password/new'

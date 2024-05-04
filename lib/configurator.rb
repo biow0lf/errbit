@@ -56,7 +56,10 @@ class Configurator
   def scan
     @mapping.each do |key, values|
       @overrides[key] = values.pop if values.last.is_a? Proc
+      # rubocop:disable Style/FetchEnvVar
+      # It's ok rubocop, I know what I'm doing
       env_name = values.find { |v| ENV[v] }
+      # rubocop:enable Style/FetchEnvVar
       @storage[key] = if env_name
                         ENV[env_name].empty? ? '' : YAML.parse(ENV[env_name]).to_ruby
                       end
